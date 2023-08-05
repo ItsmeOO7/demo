@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="977.0" prefWidth="1201.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.DashboardController">
+   <children>
+      <BorderPane layoutX="-2.0" prefHeight="977.0" prefWidth="1285.0">
+         <left>
+            <Pane prefHeight="884.0" prefWidth="234.0" style="-fx-background-color: FFDDCC;" BorderPane.alignment="CENTER">
+               <children>
+                  <ImageView fitHeight="100.0" fitWidth="125.0" layoutX="65.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Images/donate_food_0.png" />
+                     </image>
+                  </ImageView>
+                  <VBox layoutX="-1.0" layoutY="149.0" prefHeight="483.0" prefWidth="240.0">
+                     <children>
+                        <Button id="btn" fx:id="btnDash" alignment="BOTTOM_LEFT" mnemonicParsing="false" onAction="#HandleClicks" prefHeight="67.0" prefWidth="235.0" stylesheets="@application.css" text="Dashboard">
+                           <padding>
+                              <Insets bottom="25.0" left="75.0" />
+                           </padding>
+                           <font>
+                              <Font size="15.0" />
+                           </font></Button>
+                        <Button id="btn" fx:id="btnProf" alignment="BOTTOM_LEFT" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#HandleClicks" prefHeight="67.0" prefWidth="235.0" stylesheets="@application.css" text="Profile">
+                           <padding>
+                              <Insets bottom="25.0" left="90.0" />
+                           </padding>
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Button>
+                        <Button id="btn" fx:id="btnLog" alignment="BOTTOM_LEFT" layoutX="10.0" layoutY="77.0" mnemonicParsing="false" onAction="#HandleClicks" prefHeight="67.0" prefWidth="235.0" stylesheets="@application.css" text="Logout">
+                           <padding>
+                              <Insets bottom="25.0" left="85.0" />
+                           </padding>
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </VBox>
+               </children>
+            </Pane>
+         </left>
+         <center>
+            <StackPane prefHeight="977.0" prefWidth="946.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Pane prefHeight="977.0" prefWidth="930.0">
+                     <children>
+                        <Pane fx:id="pn2" prefHeight="977.0" prefWidth="1055.0" style="-fx-background-color: FFEECC;">
+                           <children>
+                              <Label layoutX="214.0" layoutY="175.0" text="Email ID :" />
+                              <TextField layoutX="300.0" layoutY="171.0" prefHeight="25.0" prefWidth="455.0" />
+                              <Label layoutX="202.0" layoutY="219.0" text="Full Name :" />
+                              <TextField layoutX="300.0" layoutY="215.0" prefHeight="25.0" prefWidth="455.0" />
+                              <Label layoutX="204.0" layoutY="264.0" text="Password :" />
+                              <PasswordField layoutX="300.0" layoutY="260.0" prefHeight="25.0" prefWidth="455.0" />
+                              <Label layoutX="232.0" layoutY="301.0" text="Age :" />
+                              <TextField layoutX="300.0" layoutY="297.0" prefHeight="25.0" prefWidth="455.0" />
+                              <Label layoutX="171.0" layoutY="342.0" text="Phone Number :" />
+                              <TextField layoutX="300.0" layoutY="338.0" prefHeight="25.0" prefWidth="455.0" />
+                              <Button id="button" defaultButton="true" layoutX="445.0" layoutY="405.0" prefHeight="38.0" prefWidth="146.0" stylesheets="@application.css" text="Update" textFill="WHITE">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <cursor>
+                                    <Cursor fx:constant="DEFAULT" />
+                                 </cursor>
+                              </Button>
+                           </children>
+                        </Pane>
+                     </children>
+                  </Pane>
+                  <Pane visible="false">
+                     <children>
+                        <TabPane fx:id="tabpn1" prefHeight="977.0" prefWidth="1055.0" tabClosingPolicy="UNAVAILABLE">
+                          <tabs>
+                            <Tab text="Donation">
+                              <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="948.0" prefWidth="1057.0" />
+                              </content>
+                            </Tab>
+                            <Tab text="Food Requests">
+                              <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                              </content>
+                            </Tab>
+                              <Tab text="History">
+                                <content>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                </content>
+                              </Tab>
+                          </tabs>
+                        </TabPane>
+                     </children>
+                  </Pane>
+               </children>
+            </StackPane>
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>

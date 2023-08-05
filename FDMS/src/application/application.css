@@ -1,0 +1,29 @@
+#button{
+    -fx-text-fill: white;
+    -fx-background-radius: 30;
+    -fx-cursor: Hand;
+    -fx-background-color: linear-gradient(#EF6262, #873a3a);
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+}
+
+#button:hover {
+    -fx-background-color: linear-gradient(#873a3a,#EF6262);
+}
+
+#btn
+{
+	-fx-background-color:  #FFDDCC;
+	
+}
+
+#btn:hover
+{
+	-fx-background-color: #fba177
+}
+
+#btn:pressed
+{
+	-fx-background-color: #fba177
+}
+
+/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */

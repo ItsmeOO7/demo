@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="897.0" prefWidth="1716.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.HomeController">
+   <children>
+      <Pane layoutY="1.0" prefHeight="897.0" prefWidth="415.0" style="-fx-background-color: FFDDCC;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <ImageView fitHeight="299.0" fitWidth="301.0" layoutX="55.0" layoutY="201.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Images/donate_food_0.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <Pane accessibleRole="TEXT_FIELD" layoutX="416.0" prefHeight="897.0" prefWidth="1300.0" style="-fx-background-color: FFEECC;" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Button id="button" fx:id="log" defaultButton="true" layoutX="442.0" layoutY="368.0" onAction="#login" prefHeight="38.0" prefWidth="146.0" stylesheets="@application.css" text="Login " textFill="WHITE">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+            </Button>
+            <Label alignment="CENTER" layoutX="212.0" layoutY="78.0" lineSpacing="1.0" opacity="0.75" text="Food Donation Management System" textOverrun="LEADING_WORD_ELLIPSIS">
+               <font>
+                  <Font name="System Bold" size="40.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" layoutX="340.0" layoutY="180.0" lineSpacing="1.0" opacity="0.75" text="Login to continue" textOverrun="LEADING_WORD_ELLIPSIS">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <TextField fx:id="Uid" blendMode="SRC_ATOP" layoutX="340.0" layoutY="231.0" prefHeight="25.0" prefWidth="361.0" promptText="User ID" />
+            <PasswordField fx:id="pass" layoutX="340.0" layoutY="286.0" prefHeight="25.0" prefWidth="361.0" promptText="Password" />
+            <Label alignment="CENTER" layoutX="442.0" layoutY="449.0" lineSpacing="1.0" opacity="0.75" prefHeight="16.0" prefWidth="73.0" text="New User?" textOverrun="LEADING_WORD_ELLIPSIS">
+               <font>
+                  <Font name="Arial" size="13.0" />
+               </font>
+            </Label>
+            <Hyperlink layoutX="515.0" layoutY="444.0" onAction="#switchToReg" text="Sign Up" />
+            <Hyperlink layoutX="592.0" layoutY="329.0" text="Forgot Password?" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
