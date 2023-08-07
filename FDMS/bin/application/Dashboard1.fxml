@@ -145,17 +145,17 @@
                                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                    <children>
                                                       <Label layoutX="174.0" layoutY="117.0" text="Name:" />
-                                                      <TextField layoutX="233.0" layoutY="113.0" prefHeight="25.0" prefWidth="455.0" />
+                                                      <TextField fx:id="name" layoutX="233.0" layoutY="113.0" prefHeight="25.0" prefWidth="455.0" />
                                                       <Label layoutX="113.0" layoutY="158.0" text="Enter Food Name:" />
-                                                      <TextField layoutX="233.0" layoutY="154.0" prefHeight="25.0" prefWidth="455.0" />
+                                                      <TextField fx:id="F_name" layoutX="233.0" layoutY="154.0" prefHeight="25.0" prefWidth="455.0" />
                                                       <Label layoutX="137.0" layoutY="198.0" text="Food Weight:" />
-                                                      <TextField layoutX="233.0" layoutY="194.0" prefHeight="25.0" prefWidth="152.0" />
-                                                      <ComboBox fx:id="ucombo1" layoutX="410.0" layoutY="194.0" prefHeight="25.0" prefWidth="101.0" promptText="Select Unit" />
+                                                      <TextField fx:id="F_weight" layoutX="233.0" layoutY="194.0" prefHeight="25.0" prefWidth="152.0" />
+                                                      <ComboBox fx:id="Rcombo" layoutX="410.0" layoutY="194.0" prefHeight="25.0" prefWidth="101.0" promptText="Select Unit" />
                                                       <Label layoutX="168.0" layoutY="238.0" text="Center:" />
-                                                      <ComboBox fx:id="Ccombo1" layoutX="233.0" layoutY="236.0" prefHeight="25.0" prefWidth="112.0" promptText="Select Center" />
+                                                      <ComboBox fx:id="Reqcombo" layoutX="233.0" layoutY="236.0" prefHeight="25.0" prefWidth="112.0" promptText="Select Center" />
                                                       <Label layoutX="131.0" layoutY="280.0" text="Delivery Date:" />
-                                                      <DatePicker layoutX="233.0" layoutY="276.0" />
-                                                      <Button id="button" defaultButton="true" layoutX="337.0" layoutY="340.0" prefHeight="38.0" prefWidth="146.0" stylesheets="@application.css" text="Request" textFill="WHITE">
+                                                      <DatePicker fx:id="D_date" layoutX="233.0" layoutY="276.0" />
+                                                      <Button id="button" fx:id="Request" defaultButton="true" layoutX="337.0" layoutY="340.0" onAction="#Request" prefHeight="38.0" prefWidth="146.0" stylesheets="@application.css" text="Request" textFill="WHITE">
                                                          <opaqueInsets>
                                                             <Insets />
                                                          </opaqueInsets>
@@ -170,21 +170,22 @@
                                             <content>
                                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                    <children>
-                                                      <TableView layoutX="51.0" layoutY="73.0" prefHeight="296.0" prefWidth="991.0">
+                                                      <TableView fx:id="Frq_table" layoutX="51.0" layoutY="73.0" prefHeight="313.0" prefWidth="1027.0">
                                                          <columns>
-                                                            <TableColumn prefWidth="98.66669464111328" text="Request ID" />
-                                                            <TableColumn prefWidth="109.33332824707031" text="Food Name" />
-                                                            <TableColumn prefWidth="110.6666259765625" text="Food Type" />
-                                                            <TableColumn prefWidth="128.666748046875" text="Food Weight" />
-                                                            <TableColumn prefWidth="138.6666259765625" text="Center" />
-                                                            <TableColumn prefWidth="204.0" text="Delivery Date" />
-                                                            <TableColumn prefWidth="117.33319091796875" text="Status" />
+                                                            <TableColumn fx:id="Req_num" prefWidth="98.66669464111328" text="Request Number" />
+                                                            <TableColumn fx:id="Req_Id" prefWidth="98.66669464111328" text="Request ID" />
+                                                            <TableColumn fx:id="Req_name" prefWidth="109.33332824707031" text="Name" />
+                                                            <TableColumn fx:id="Req_fname" prefWidth="109.33332824707031" text="Food Name" />
+                                                            <TableColumn fx:id="R_w" prefWidth="128.666748046875" text="Food Weight" />
+                                                            <TableColumn fx:id="F_center" prefWidth="138.6666259765625" text="Center" />
+                                                            <TableColumn fx:id="Fr_date" prefWidth="204.0" text="Delivery Date" />
+                                                            <TableColumn fx:id="status" prefWidth="117.33319091796875" text="Status" />
                                                          </columns>
                                                          <columnResizePolicy>
                                                             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                                          </columnResizePolicy>
                                                       </TableView>
-                                                      <Button id="button" defaultButton="true" layoutX="51.0" layoutY="401.0" prefHeight="38.0" prefWidth="116.0" stylesheets="@application.css" text="Refresh" textFill="WHITE">
+                                                      <Button id="button" defaultButton="true" layoutX="51.0" layoutY="401.0" onAction="#F_details" prefHeight="38.0" prefWidth="116.0" stylesheets="@application.css" text="Refresh" textFill="WHITE">
                                                          <opaqueInsets>
                                                             <Insets />
                                                          </opaqueInsets>

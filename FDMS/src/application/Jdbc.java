@@ -25,11 +25,17 @@ public class Jdbc{
 	
 	 private static final String INSERT_QUERY = "INSERT INTO user_info (Email, Full_name, Pass , Age, Number) VALUES (?, ?, ?, ?, ?)";
 	 private static final String SEARCH_Q = "SELECT * FROM user_info WHERE Email = ? and Pass = ?";
+	 private static final String SEARCH_A = "SELECT * FROM admin WHERE ID = ? and Pass = ?";
+	 private static final String SEARCH_U = "SELECT * FROM user_info";
+	 private static final String DELETE_U = "DELETE FROM user_info WHERE Email =?";
+	 private static final String SEARCH_RQ = "SELECT * FROM food_request";
 	 private static final String SELECT_QUERY = "SELECT ID, Food_name, Ftype , Food_weight, Center ,Ex_Date , Date FROM donation WHERE ID=?";
 	 private static final String INSERT_D = "INSERT INTO donation (ID, Food_name, Ftype , Food_weight, Center ,Ex_Date , Date) VALUES (?, ?, ?, ?, ?, ? ,? )";
 	 private static final String SEARCH_user = "SELECT * FROM user_info WHERE Email=?";
 	 private static final String UP_QUERY = "UPDATE user_info set Email = ?, Full_name=?, Pass = ?, Age = ?, Number= ? WHERE Email = ?";
-	 
+	 private static final String UP_REQ = "UPDATE food_request set Status=? WHERE Req_num = ?";
+	 private static final String INSERT_R = "INSERT INTO food_request (Req_id, Name, Food_name , Food_weight, Center ,Del_date , Status) VALUES (?, ?, ?, ?, ?, ? ,?)";
+	 private static final String SELECT_R = "SELECT Req_id, Name, Food_name , Food_weight, Center ,Del_date , Status ,Req_num FROM food_request WHERE Req_id=?";
 	 
 	 
 	 
@@ -209,7 +215,209 @@ public class Jdbc{
 	            printSQLException(e);
 	        }
 	    }
+	      
+	      
+	      public void RequestFood(String Id, String Name, String Food_Name, String Food_weight , String Center, String Date , String Status) throws SQLException {
+
+		        // Step 1: Establishing a Connection and 
+		        // try-with-resource statement will auto close the connection.
+		        try (
+		                
+		            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/ood?allowPublicKeyRetrieval=true&useSSL=false","root","root");
+		            PreparedStatement preparedStatement = connection.prepareStatement(INSERT_R) ){
+		            preparedStatement.setString(1, Id);
+		            preparedStatement.setString(2, Name);
+		            preparedStatement.setString(3, Food_Name);
+		            preparedStatement.setString(4, Food_weight);
+		            preparedStatement.setString(5, Center);
+		            preparedStatement.setString(6, Date);
+		            preparedStatement.setString(7, Status);
+		            System.out.println(preparedStatement);
+		            // Step 3: Execute the query or update query
+		            preparedStatement.executeUpdate();
+		        } catch (SQLException e) {
+		            // print SQL exception information
+		            printSQLException(e);
+		        }
+		    }
+	      
+	      public void UpdateStat(String status, int num) throws SQLException {
+
+		        // Step 1: Establishing a Connection and 
+		        // try-with-resource statement will auto close the connection.
+		        try (
+		                
+		            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/ood","root","root");
+		            PreparedStatement preparedStatement = connection.prepareStatement(UP_REQ) ){
+		            preparedStatement.setString(1, status);
+		            preparedStatement.setInt(2, num);
+		           
+		            System.out.println(preparedStatement);
+		            // Step 3: Execute the query or update query
+		            preparedStatement.executeUpdate();
+		        } catch (SQLException e) {
+		            // print SQL exception information
+		            printSQLException(e);
+		        }
+		    }
+	      
+	      public void DeleteUser(String Email) throws SQLException {
+
+		        // Step 1: Establishing a Connection and 
+		        // try-with-resource statement will auto close the connection.
+		        try (
+		                
+		            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/ood","root","root");
+		            PreparedStatement preparedStatement = connection.prepareStatement(DELETE_U) ){
+		            preparedStatement.setString(1, Email);
+		            
+		           
+		            System.out.println(preparedStatement);
+		            // Step 3: Execute the query or update query
+		            preparedStatement.execute();
+		        } catch (SQLException e) {
+		            // print SQL exception information
+		            printSQLException(e);
+		        }
+		    }  
+	      
+	      
+	 	 public  ObservableList<foodreq> getReq(String Id) throws SQLException
+	 	    {
+	 		 ObservableList<foodreq> req = FXCollections.observableArrayList();
+	 	        try(
+	 	            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/ood","root","root");
+	 	            PreparedStatement preparedStatement = connection.prepareStatement(SELECT_R);) 
+	 	        {
+	 	            preparedStatement.setString(1, Id);
+	 	            
+	 	            System.out.println(preparedStatement);
+	 	            ResultSet rs = preparedStatement.executeQuery();
+	 	            foodreq fr ;
+	 	            while(rs.next())
+	 	            {
+	 	            	
+	 	            	fr= new foodreq(
+	 	            			rs.getString("Req_id"),
+	 	            			rs.getString("Name"),
+	 	            			rs.getString("Food_name"),
+	 	            			rs.getString("Food_weight"),
+	 	            			rs.getString("Center"),
+	 	            			rs.getString("Del_date"),
+	 	            			rs.getString("Status"),
+	 	            			rs.getInt("Req_num"));
+	 	            	
+	 	            	
+	 	            	
+	 	            	
+	 	            	
+	 	                req.add(fr);
+	 	               
+	 	           
+	 	            }
+	 	           
+	 	        }catch(SQLException e){
+	 	        
+	 	            printSQLException(e);     
+	 	        }
+	 	        return req;
+	 	    }
 	 
+	 	 
+	 	 
+	 	 public  ObservableList<users> getAllUserRecord() throws SQLException
+		    {
+			 ObservableList<users> udata = FXCollections.observableArrayList();
+		        try(
+		            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/ood","root","root");
+		            PreparedStatement preparedStatement = connection.prepareStatement(SEARCH_U);) 
+		        {
+		            //preparedStatement.setString(1, Id);
+		            
+		            System.out.println(preparedStatement);
+		            ResultSet rs = preparedStatement.executeQuery();
+		            users data ;
+		            while(rs.next())
+		            {
+		            	
+		            	data= new users(rs.getString("Email"),
+		            			rs.getString("Full_name"),
+		            			rs.getString("Pass"),
+		            			rs.getString("Age"),
+		            			rs.getString("Number"));
+		            			
+		                udata.add(data);
+		               
+		           
+		            }
+		           
+		        }catch(SQLException e){
+		        
+		            printSQLException(e);     
+		        }
+		        return udata;
+		    }
+	 	 
+	 	 
+	 	public boolean searchAdmin(String emailId, String password) throws SQLException
+	    {
+	        
+	        try(
+	            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/ood","root","root");
+	            PreparedStatement preparedStatement = connection.prepareStatement(SEARCH_A);) 
+	        {
+	            preparedStatement.setString(1,emailId);
+	            preparedStatement.setString(2,password);
+	            System.out.println(preparedStatement);
+	            ResultSet rs = preparedStatement.executeQuery();
+	            if(rs.next())
+	            {
+	                return true;
+	            }     
+	        }catch(SQLException e){
+	        
+	            printSQLException(e);     
+	        }
+	        return false;
+	    }
+	 	
+	 	
+	 	 public  ObservableList<foodreq> getAllReq() throws SQLException
+	 	    {
+	 		 ObservableList<foodreq> req = FXCollections.observableArrayList();
+	 	        try(
+	 	            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/ood","root","root");
+	 	            PreparedStatement preparedStatement = connection.prepareStatement(SEARCH_RQ);) 
+	 	        {
+	 	            //preparedStatement.setString(1, Id);
+	 	            
+	 	            System.out.println(preparedStatement);
+	 	            ResultSet rs = preparedStatement.executeQuery();
+	 	            foodreq fr ;
+	 	            while(rs.next())
+	 	            {
+	 	            	
+	 	            	fr= new foodreq(
+	 	            			rs.getString("Req_id"),
+	 	            			rs.getString("Name"),
+	 	            			rs.getString("Food_name"),
+	 	            			rs.getString("Food_weight"),
+	 	            			rs.getString("Center"),
+	 	            			rs.getString("Del_date"),
+	 	            			rs.getString("Status"),
+	 	            			rs.getInt("Req_num")
+	 	            			) ;
+	 	                req.add(fr);
+	 	               
+	 	           
+	 	            }
+	 	           
+	 	        }catch(SQLException e){
+	 	        
+	 	            printSQLException(e);     
+	 	        }
+	 	        return req;
+	 	    }
 	 
 	     /*  @FXML 
 	      public List<users> getUser(String emailid) throws SQLException, IOException {

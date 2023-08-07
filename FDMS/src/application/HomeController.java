@@ -73,6 +73,17 @@ public class HomeController implements Initializable{
 	            System.out.println("working");
 	            return;
 	        }
+	        
+	        boolean check1 = jdbc.searchAdmin(Id, password);
+	        if(check1)
+	        {
+	            showAlert(Alert.AlertType.CONFIRMATION, owner, "Login Successful!","Welcome Admin ");
+	            
+	           // data.setId(Uid.getText());	            
+	            switchToAdminDash();
+	            System.out.println("working");
+	            return;
+	        }
 	        showAlert(Alert.AlertType.ERROR, owner, "Login unsuccessful","Try again");
 	        
 	        
@@ -101,7 +112,11 @@ public class HomeController implements Initializable{
        Main.setRoot("Dashboard1");
     
     }
+    @FXML
+    private void switchToAdminDash() throws IOException{
+       Main.setRoot("AdminDashboard");
     
+    }
     
        
     @FXML

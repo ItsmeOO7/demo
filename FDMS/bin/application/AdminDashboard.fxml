@@ -18,7 +18,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="748.0" prefWidth="1761.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.DashboardController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="748.0" prefWidth="1761.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.AdminController">
    <children>
       <AnchorPane prefHeight="587.0" prefWidth="895.0">
          <children>
@@ -41,7 +41,7 @@
                                     <Font size="15.0" />
                                  </font>
                               </Button>
-                              <Button id="btn" fx:id="btnProf" alignment="BOTTOM_LEFT" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#HandleClicks" prefHeight="67.0" prefWidth="242.0" stylesheets="@application.css" text="Analytics">
+                              <Button id="btn" fx:id="btnAnly" alignment="BOTTOM_LEFT" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#HandleClicks" prefHeight="67.0" prefWidth="242.0" stylesheets="@application.css" text="Analytics">
                                  <padding>
                                     <Insets bottom="25.0" left="82.0" />
                                  </padding>
@@ -52,7 +52,7 @@
                                     <Insets />
                                  </opaqueInsets>
                               </Button>
-                              <Button id="btn" fx:id="btnLog" alignment="BOTTOM_LEFT" layoutX="10.0" layoutY="77.0" mnemonicParsing="false" onAction="#switchToHome" prefHeight="67.0" prefWidth="241.0" stylesheets="@application.css" text="Logout">
+                              <Button id="btn" fx:id="btnLog" alignment="BOTTOM_LEFT" layoutX="10.0" layoutY="77.0" mnemonicParsing="false" onAction="#HandleClicks" prefHeight="67.0" prefWidth="241.0" stylesheets="@application.css" text="Logout">
                                  <padding>
                                     <Insets bottom="25.0" left="85.0" />
                                  </padding>
@@ -88,17 +88,17 @@
                                           <content>
                                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                    <children>
+                                                      <TextField fx:id="Upass" layoutX="758.0" layoutY="454.0" prefHeight="25.0" prefWidth="455.0" />
                                                       <Label layoutX="675.0" layoutY="362.0" text="Email ID :" />
-                                                      <TextField layoutX="758.0" layoutY="557.0" prefHeight="25.0" prefWidth="455.0" />
+                                                      <TextField fx:id="Unum" layoutX="758.0" layoutY="557.0" prefHeight="25.0" prefWidth="455.0" />
                                                       <Label layoutX="667.0" layoutY="411.0" text="Full Name:" />
-                                                      <TextField layoutX="758.0" layoutY="506.0" prefHeight="25.0" prefWidth="455.0" />
+                                                      <TextField fx:id="Uage" layoutX="758.0" layoutY="506.0" prefHeight="25.0" prefWidth="455.0" />
                                                       <Label layoutX="669.0" layoutY="458.0" text="Password:" />
-                                                      <PasswordField layoutX="758.0" layoutY="454.0" prefHeight="25.0" prefWidth="455.0" />
                                                       <Label layoutX="694.0" layoutY="510.0" text="Age:" />
-                                                      <TextField layoutX="758.0" layoutY="407.0" prefHeight="25.0" prefWidth="455.0" />
+                                                      <TextField fx:id="F_nm" layoutX="758.0" layoutY="407.0" prefHeight="25.0" prefWidth="455.0" />
                                                       <Label layoutX="640.0" layoutY="565.0" text="Phone Number:" />
-                                                      <TextField layoutX="758.0" layoutY="358.0" prefHeight="25.0" prefWidth="455.0" />
-                                                      <Button id="button" defaultButton="true" layoutX="494.0" layoutY="634.0" prefHeight="38.0" prefWidth="146.0" stylesheets="@application.css" text="Create" textFill="WHITE">
+                                                      <TextField fx:id="E_ID" layoutX="758.0" layoutY="358.0" prefHeight="25.0" prefWidth="455.0" />
+                                                      <Button id="button" fx:id="crt" defaultButton="true" layoutX="494.0" layoutY="634.0" onAction="#Createuser" prefHeight="38.0" prefWidth="146.0" stylesheets="@application.css" text="Create" textFill="WHITE">
                                                          <opaqueInsets>
                                                             <Insets />
                                                          </opaqueInsets>
@@ -106,7 +106,7 @@
                                                             <Cursor fx:constant="DEFAULT" />
                                                          </cursor>
                                                       </Button>
-                                                      <Button id="button" defaultButton="true" layoutX="685.0" layoutY="634.0" prefHeight="38.0" prefWidth="146.0" stylesheets="@application.css" text="Update" textFill="WHITE">
+                                                      <Button id="button" fx:id="pdt" defaultButton="true" layoutX="685.0" layoutY="634.0" onAction="#Updateuser" prefHeight="38.0" prefWidth="146.0" stylesheets="@application.css" text="Update" textFill="WHITE">
                                                          <opaqueInsets>
                                                             <Insets />
                                                          </opaqueInsets>
@@ -114,7 +114,7 @@
                                                             <Cursor fx:constant="DEFAULT" />
                                                          </cursor>
                                                       </Button>
-                                                      <Button id="button" defaultButton="true" layoutX="878.0" layoutY="634.0" prefHeight="38.0" prefWidth="146.0" stylesheets="@application.css" text="Delete" textFill="WHITE">
+                                                      <Button id="button" fx:id="dlt" defaultButton="true" layoutX="878.0" layoutY="634.0" onAction="#Deleteuser" prefHeight="38.0" prefWidth="146.0" stylesheets="@application.css" text="Delete" textFill="WHITE">
                                                          <opaqueInsets>
                                                             <Insets />
                                                          </opaqueInsets>
@@ -122,20 +122,26 @@
                                                             <Cursor fx:constant="DEFAULT" />
                                                          </cursor>
                                                       </Button>
-                                                      <TableView layoutX="69.0" layoutY="25.0" prefHeight="296.0" prefWidth="955.0">
+                                                      <TableView fx:id="user_table" layoutX="69.0" layoutY="25.0" onMouseClicked="#addUserSelect" prefHeight="296.0" prefWidth="955.0">
                                                          <columns>
-                                                            <TableColumn prefWidth="98.66669464111328" text="Donar ID" />
-                                                            <TableColumn prefWidth="109.33332824707031" text="Food Name" />
-                                                            <TableColumn prefWidth="110.6666259765625" text="Food Type" />
-                                                            <TableColumn prefWidth="128.666748046875" text="Food Weight" />
-                                                            <TableColumn prefWidth="150.66668701171875" text="Center" />
-                                                            <TableColumn prefWidth="132.0" text="Expiray Date" />
-                                                            <TableColumn prefWidth="106.66656494140625" text="Donation Date" />
+                                                            <TableColumn fx:id="Email_ID" prefWidth="98.66669464111328" text="Email_ID" />
+                                                            <TableColumn fx:id="Full_name" prefWidth="109.33332824707031" text="Full Name" />
+                                                            <TableColumn fx:id="Pass" prefWidth="110.6666259765625" text="Password" />
+                                                            <TableColumn fx:id="age" prefWidth="128.666748046875" text="Age" />
+                                                            <TableColumn fx:id="number" prefWidth="150.66668701171875" text="Phone Number" />
                                                          </columns>
                                                          <columnResizePolicy>
                                                             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                                          </columnResizePolicy>
                                                       </TableView>
+                                                      <Button id="button" fx:id="ref" defaultButton="true" layoutX="69.0" layoutY="360.0" onAction="#refresh" prefHeight="38.0" prefWidth="146.0" stylesheets="@application.css" text="Refresh" textFill="WHITE">
+                                                         <opaqueInsets>
+                                                            <Insets />
+                                                         </opaqueInsets>
+                                                         <cursor>
+                                                            <Cursor fx:constant="DEFAULT" />
+                                                         </cursor>
+                                                      </Button>
                                                    </children></AnchorPane>
                                           </content>
                                         </Tab>
@@ -143,21 +149,40 @@
                                             <content>
                                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                    <children>
-                                                      <TableView layoutX="109.0" layoutY="69.0" prefHeight="296.0" prefWidth="955.0">
-                                                        <columns>
-                                                          <TableColumn prefWidth="98.66669464111328" text="Donar ID" />
-                                                          <TableColumn prefWidth="109.33332824707031" text="Food Name" />
-                                                            <TableColumn prefWidth="110.6666259765625" text="Food Type" />
-                                                            <TableColumn prefWidth="128.666748046875" text="Food Weight" />
-                                                            <TableColumn prefWidth="150.66668701171875" text="Center" />
-                                                            <TableColumn prefWidth="132.0" text="Expiray Date" />
-                                                            <TableColumn prefWidth="106.66656494140625" text="Donation Date" />
-                                                        </columns>
+                                                      <Button id="button" defaultButton="true" layoutX="90.0" layoutY="408.0" onAction="#F_details" prefHeight="38.0" prefWidth="112.0" stylesheets="@application.css" text="Get Details" textFill="WHITE">
+                                                         <opaqueInsets>
+                                                            <Insets />
+                                                         </opaqueInsets>
+                                                         <cursor>
+                                                            <Cursor fx:constant="DEFAULT" />
+                                                         </cursor>
+                                                      </Button>
+                                                      <TableView fx:id="Frq_table" layoutX="90.0" layoutY="38.0" onMouseClicked="#addRequestSelect" prefHeight="343.0" prefWidth="1067.0">
+                                                         <columns>
+                                                            <TableColumn fx:id="Req_num" prefWidth="110.00000762939453" text="Request Number" />
+                                                            <TableColumn fx:id="Req_Id" prefWidth="131.3333282470703" text="Request ID" />
+                                                            <TableColumn fx:id="Req_name" prefWidth="108.0" text="Name" />
+                                                            <TableColumn fx:id="Req_fname" prefWidth="120.66671752929688" text="Food Name" />
+                                                            <TableColumn fx:id="R_w" prefWidth="138.6666259765625" text="Food Weight" />
+                                                            <TableColumn fx:id="F_center" prefWidth="132.66668701171875" text="Center" />
+                                                            <TableColumn fx:id="Fr_date" prefWidth="197.99993896484375" text="Delivery Date" />
+                                                            <TableColumn fx:id="status" prefWidth="117.33319091796875" text="Status" />
+                                                         </columns>
                                                          <columnResizePolicy>
                                                             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                                          </columnResizePolicy>
                                                       </TableView>
-                                                      <Button id="button" defaultButton="true" layoutX="109.0" layoutY="401.0" prefHeight="38.0" prefWidth="112.0" stylesheets="@application.css" text="Get Details" textFill="WHITE">
+                                                      <Label layoutX="63.0" layoutY="488.0" text="Request Number :" />
+                                                      <TextField fx:id="R_ID" layoutX="168.0" layoutY="484.0" prefHeight="25.0" prefWidth="455.0" />
+                                                      <Button id="button" fx:id="Apr" defaultButton="true" layoutX="103.0" layoutY="539.0" onAction="#stat" prefHeight="38.0" prefWidth="112.0" stylesheets="@application.css" text="Approve" textFill="WHITE">
+                                                         <opaqueInsets>
+                                                            <Insets />
+                                                         </opaqueInsets>
+                                                         <cursor>
+                                                            <Cursor fx:constant="DEFAULT" />
+                                                         </cursor>
+                                                      </Button>
+                                                      <Button id="button" fx:id="dec" defaultButton="true" layoutX="238.0" layoutY="539.0" onAction="#stat" prefHeight="38.0" prefWidth="112.0" stylesheets="@application.css" text="Decline" textFill="WHITE">
                                                          <opaqueInsets>
                                                             <Insets />
                                                          </opaqueInsets>

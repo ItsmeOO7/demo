@@ -15,8 +15,7 @@ import java.util.List;
 //import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-
-
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -36,7 +35,10 @@ import application.Jdbc;
 
 public class DashboardController  implements Initializable{
 	    
-	
+	    
+	   @FXML
+	    private Button Request;
+	    
         @FXML
         private DatePicker date;
 
@@ -83,6 +85,9 @@ public class DashboardController  implements Initializable{
 	    private TableColumn<donation , String> Don_date;
 	    
 	    @FXML
+	    private TableColumn<foodreq , String> Fr_date;
+	    
+	    @FXML
 	    private TableColumn<donation , String> Fd_exd;
 
 	    @FXML
@@ -118,6 +123,56 @@ public class DashboardController  implements Initializable{
 
 	    @FXML
 	    private TextField U_pn;
+	    
+	    @FXML
+	    private DatePicker D_date;
+	    
+	    @FXML
+	    private ComboBox<String> Rcombo;
+
+	    @FXML
+	    private ComboBox<String> Reqcombo;
+	    
+	    @FXML
+	    private TextField F_name;
+	    
+	    @FXML
+	    private TextField F_weight;
+
+	    @FXML
+	    private Button get_det;
+
+	    @FXML
+	    private TextField name;
+        
+	    
+	    @FXML
+	    private TableColumn<foodreq, String> Fr_type;
+
+	    @FXML
+	    private TableView<foodreq> Frq_table;
+	    
+	    @FXML
+	    private TableColumn<foodreq, String> R_w;
+	    
+	    @FXML
+	    private TableColumn<foodreq, String> Req_Id;
+
+	    @FXML
+	    private TableColumn<foodreq, String> Req_name;
+	    
+	    @FXML
+	    private TableColumn<foodreq, String> status;
+	    
+	    @FXML
+	    private TableColumn<foodreq, String> F_center;
+	    
+	    @FXML
+	    private TableColumn<foodreq, String> Req_fname;
+	    
+	    @FXML
+	    private TableColumn<foodreq, Integer> Req_num;
+
 	    
 	    
 	    Jdbc jdbc = new Jdbc();
@@ -208,7 +263,7 @@ public class DashboardController  implements Initializable{
 	@FXML
     private void up_user() throws IOException, SQLException {
 		 
-		   Window owner = Donate.getScene().getWindow();
+		   Window owner = btnProf.getScene().getWindow();
 		   String ID = Welcome.getText();
 	     
 	        String email = U_Id.getText();
@@ -259,7 +314,7 @@ public class DashboardController  implements Initializable{
 	@FXML
     private void details() throws IOException, SQLException {
 		 
-		   Window owner = Donate.getScene().getWindow();
+		 //  Window owner = Donate.getScene().getWindow();
 		   String ID = Welcome.getText();
 		  // donation don = new donation();
 		   
@@ -296,6 +351,102 @@ public class DashboardController  implements Initializable{
 
     }
 	
+	ObservableList<foodreq> feq;
+	@FXML
+    private void F_details() throws IOException, SQLException {
+		 
+		 //  Window owner = Donate.getScene().getWindow();
+		   String ID = Welcome.getText();
+		  // donation don = new donation();
+		   
+		   feq =jdbc.getReq(ID);
+		   
+		   
+
+		          
+		        
+		 
+	//	 String check= dn.get(0).getId();
+		
+		   //jdbc.getRecord(ID);
+		 //  System.out.println(check +"hi");
+		   Req_num.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getNum()).asObject());
+		   Req_Id.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getId()) );
+		   Req_name.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
+		   Req_fname.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFoodname()));
+		   R_w.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFoodweight()));
+		   F_center.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCenter()));
+		   Fr_date.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getdate()));
+		    status.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getStatus()));
+		   
+		   
+		   
+		   
+	 
+		   
+		    Frq_table.setItems(feq);
+		    
+		
+		   
+		   
+		         
+	       
+
+    }
+	
+	
+ String stat ="Pending";
+	
+	@FXML
+    private void Request() throws IOException, SQLException {
+		 
+		   Window owner = Request.getScene().getWindow();
+		   String ID = Welcome.getText();
+		         
+	       
+	        if (name.getText().isEmpty()) {
+	            showAlert(Alert.AlertType.ERROR, owner, "Form Error!",
+	                "Please enter Name");
+	            return;
+	        }
+	        
+
+	        if (F_name.getText().isEmpty()) {
+	            showAlert(Alert.AlertType.ERROR, owner, "Form Error!",
+	                "Please enter Food Name");
+	            return;
+	        }
+	        
+	        if (F_weight.getText().isEmpty()) {
+	            showAlert(Alert.AlertType.ERROR, owner, "Form Error!",
+	                "Please enter Food weight");
+	            return;
+	        }
+	        
+	               
+	        
+	        String Name = name.getText();
+			String center =Reqcombo.getSelectionModel().getSelectedItem().toString();
+	        String foodName = F_name.getText();
+	        String foodweight= F_weight.getText();
+	       
+	        LocalDate Date = D_date.getValue();
+	        String myDate =Date.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+	        
+
+	       
+	              Jdbc jdbc = new Jdbc();
+	              jdbc.RequestFood(ID,Name,foodName,foodweight,center,myDate,stat);
+	        
+	            showAlert(Alert.AlertType.CONFIRMATION, owner, "Request send Successful!" ,"We will get back to you soon");
+	       
+	     
+	       
+		
+
+    }
+	
+	
 	
 	private static void showAlert(Alert.AlertType alertType, Window owner, String title, String message) {
         Alert alert = new Alert(alertType);
@@ -326,6 +477,9 @@ public class DashboardController  implements Initializable{
     combo.setItems(FXCollections.observableArrayList("Fruits","Groceries","Drinks"));
     ucombo.setItems(FXCollections.observableArrayList("lb","kg","ltr"));
     Ccombo.setItems(FXCollections.observableArrayList("Copley","Park Street","LMA"));
+    Rcombo.setItems(FXCollections.observableArrayList("lb","kg","ltr"));
+    Reqcombo.setItems(FXCollections.observableArrayList("Copley","Park Street","LMA"));
+    
     
     
     
