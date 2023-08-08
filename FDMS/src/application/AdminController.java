@@ -3,21 +3,29 @@ package application;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.Iterator;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.PieChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Window;
 
  
@@ -26,6 +34,22 @@ import javafx.stage.Window;
 
 
 public class AdminController implements Initializable{
+	
+	
+	  @FXML
+	    private BarChart<?, ?> Barchart;
+	  
+	  @FXML
+	    private PieChart piechart;
+	  
+	  @FXML
+	    private Tab bar;
+	  @FXML
+	    private Button Bc;
+	  
+	  @FXML
+	    private Button pie1;
+
 	
 	@FXML
 	private TableColumn<users, String> Email_ID;
@@ -106,8 +130,18 @@ public class AdminController implements Initializable{
 
     @FXML
     private TextField Upass;
+    
+    @FXML
+    private AnchorPane pn2;
+    
+    
+    @FXML
+    private AnchorPane BAnc;
+    @FXML
+    private AnchorPane tabpn1;
+    
 
-
+    XYChart.Series barChartData = new XYChart.Series();
     
     
     Jdbc jdbc = new Jdbc();
@@ -122,8 +156,8 @@ public class AdminController implements Initializable{
 		    	btnDash.setStyle("-fx-background-color: #fba177");
 		    	
 		    	
-		  //  tabpn1.setVisible(true);
-		  //  pn2.setVisible(false);
+		      tabpn1.setVisible(true);
+		      pn2.setVisible(false);
 		    	
 		    }
 		    if(e.getSource() == btnAnly) 
@@ -132,8 +166,8 @@ public class AdminController implements Initializable{
 		    	btnAnly.setStyle("-fx-background-color: #fba177");
 		    	//user_details();
 		    	
-		   // tabpn1.setVisible(false);
-		  //  pn2.setVisible(true);
+		      tabpn1.setVisible(false);
+		      pn2.setVisible(true);
 		    }
 		    if(e.getSource() == btnLog) 
 		    {   
@@ -234,12 +268,14 @@ public class AdminController implements Initializable{
 	              {
 	            	  jdbc.UpdateStat(stat1,ID);
 	            	  showAlert(Alert.AlertType.CONFIRMATION, owner, "Updated Successful!" ,"Approved");
+	            	  R_ID.setText("");
 	              }
 	              
 	              if(e.getSource() == dec)
 	              {
 	            	  jdbc.UpdateStat(stat2,ID);
 	            	  showAlert(Alert.AlertType.CONFIRMATION, owner, "Updated Successful!" ,"Declined");
+	            	  R_ID.setText("");
 	              }
 	            
 
@@ -287,6 +323,8 @@ public class AdminController implements Initializable{
 	             
 	            	  jdbc.insertRecord(email, name, Password, age, number);
 	            	  showAlert(Alert.AlertType.CONFIRMATION, owner, "Successful" ,"User Created Successfully!");
+	            	  
+	            	
 	             
 	             
 	            	  
@@ -338,6 +376,13 @@ public class AdminController implements Initializable{
 		 
 			   
 			user_table.setItems(user);
+			
+			
+			 E_ID.setText("");
+		       F_nm.setText("");
+		       Upass.setText("");
+		       Uage.setText("");
+		       Unum.setText("");
 			    
 			
 			
@@ -347,15 +392,81 @@ public class AdminController implements Initializable{
 		}
 		
 	}
+	 ObservableList<Bardata> bd;
+	@FXML
+	private void Bar_details() throws IOException, SQLException {
+		// String ID = Welcome.getText();
+		 barChartData.getData().clear();
+	 	 Barchart.getData().removeAll(barChartData);
+		
+		   
+		 bd =jdbc.getData();
+		  Iterator<Bardata> iterate = bd.iterator();
+	       
+	        while(iterate.hasNext())
+	        {   
+	                Bardata b = new Bardata();
+	                b = iterate.next();
+	                String xy1 =b.getDate();
+	                String xy2 =b.getSum();
+	                barChartData.getData().add(new XYChart.Data(xy1,Double.parseDouble(xy2)));
+	        }
+	        
+	        Barchart.getData().add(barChartData);
+	        
+	      
+	        
+	        
+	        
+	      //  Barchart.setAnimated(false);	 		
+	 	 
+		
+	}
 	
-    
+	
+	 ObservableList<Pie> pie;
+	 
+	 ObservableList<PieChart.Data> pieData;
+		@FXML
+		private void pie_details() throws IOException, SQLException {
+			// String ID = Welcome.getText();
+			piechart.getData().clear();
+		//	Piechart.getData().removeAll(barChartData);
+			
+			   
+			 pie =jdbc.getPData();
+			  Iterator<Pie> iterate = pie.iterator();
+			  pieData = FXCollections.observableArrayList();
+		       
+		        while(iterate.hasNext())
+		        {   
+		                Pie p = iterate.next();
+		                
+		                String xy1 =p.getCenter();
+		                String xy2 =p.getSum();
+		                pieData.add(new PieChart.Data(xy1, Double.parseDouble(xy2)));
+		                
+		               
+		        }
+		        
+		        piechart.setData(pieData);
+		        
+		      
+		        
+		        
+		        
+		      //  Barchart.setAnimated(false);	 		
+		 	 
+			
+		}
+	
     @FXML
     private void switchToHome() throws IOException {
-       Main.setRoot("Home");
+      Main.setRoot("Home");
     }
 	
     
-    @FXML
+  @FXML
     ObservableList<users> user;
 	
 	@Override

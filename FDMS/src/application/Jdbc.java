@@ -28,6 +28,8 @@ public class Jdbc{
 	 private static final String SEARCH_A = "SELECT * FROM admin WHERE ID = ? and Pass = ?";
 	 private static final String SEARCH_U = "SELECT * FROM user_info";
 	 private static final String DELETE_U = "DELETE FROM user_info WHERE Email =?";
+	 private static final String SELECT_Bar = "SELECT Date, sum(Food_weight) AS sum FROM ood.donation Group BY Date order by Timestamp(Date) asc LIMIT 8";
+	 private static final String SELECT_pie = "SELECT Center, sum(Food_weight) AS sum FROM ood.donation Group BY Center ";
 	 private static final String SEARCH_RQ = "SELECT * FROM food_request";
 	 private static final String SELECT_QUERY = "SELECT ID, Food_name, Ftype , Food_weight, Center ,Ex_Date , Date FROM donation WHERE ID=?";
 	 private static final String INSERT_D = "INSERT INTO donation (ID, Food_name, Ftype , Food_weight, Center ,Ex_Date , Date) VALUES (?, ?, ?, ?, ?, ? ,? )";
@@ -323,7 +325,82 @@ public class Jdbc{
 	 	        return req;
 	 	    }
 	 
+	 	 public  ObservableList<Bardata> getData() throws SQLException
+	 	    {
+	 		 ObservableList<Bardata> data = FXCollections.observableArrayList();
+	 	        try(
+	 	            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/ood","root","root");
+	 	            PreparedStatement preparedStatement = connection.prepareStatement(SELECT_Bar);) 
+	 	        {
+	 	           // preparedStatement.setString(1, Id);
+	 	            
+	 	            System.out.println(preparedStatement);
+	 	            ResultSet rs = preparedStatement.executeQuery();
+	 	            Bardata bd ;
+	 	            while(rs.next())
+	 	            {
+	 	            	
+	 	            	bd= new Bardata(
+	 	            			rs.getString("Date"),
+	 	            			rs.getString("sum")
+	 	            			
+	 	            			);
+	 	            	
+	 	            	
+	 	            	
+	 	            	
+	 	            	
+	 	            	
+	 	                data.add(bd);
+	 	               
+	 	           
+	 	            }
+	 	           
+	 	        }catch(SQLException e){
+	 	        
+	 	            printSQLException(e);     
+	 	        }
+	 	        return data;
+	 	    }
 	 	 
+	 	 
+	 	public  ObservableList<Pie> getPData() throws SQLException
+ 	    {
+ 		 ObservableList<Pie> data = FXCollections.observableArrayList();
+ 	        try(
+ 	            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/ood","root","root");
+ 	            PreparedStatement preparedStatement = connection.prepareStatement(SELECT_pie);) 
+ 	        {
+ 	           // preparedStatement.setString(1, Id);
+ 	            
+ 	            System.out.println(preparedStatement);
+ 	            ResultSet rs = preparedStatement.executeQuery();
+ 	            Pie p ;
+ 	            while(rs.next())
+ 	            {
+ 	            	
+ 	            	p= new Pie(
+ 	            			rs.getString("Center"),
+ 	            			rs.getString("sum")
+ 	            			
+ 	            			);
+ 	            	
+ 	            	
+ 	            	
+ 	            	
+ 	            	
+ 	            	
+ 	                data.add(p);
+ 	               
+ 	           
+ 	            }
+ 	           
+ 	        }catch(SQLException e){
+ 	        
+ 	            printSQLException(e);     
+ 	        }
+ 	        return data;
+ 	    }
 	 	 
 	 	 public  ObservableList<users> getAllUserRecord() throws SQLException
 		    {

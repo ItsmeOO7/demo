@@ -252,7 +252,13 @@ public class DashboardController  implements Initializable{
 	        
 	            showAlert(Alert.AlertType.CONFIRMATION, owner, "Donation Successful!" ,"Thank You For Donation");
 	       
-	     
+	        fname.setText("");
+	        combo.getSelectionModel().clearSelection();
+	        Fw.setText("");
+	        ucombo.getSelectionModel().clearSelection();
+	        Ccombo.getSelectionModel().clearSelection();
+	        exdate.setValue(null);
+	        date.setValue(null);
 	       
 		
 
@@ -440,7 +446,13 @@ public class DashboardController  implements Initializable{
 	        
 	            showAlert(Alert.AlertType.CONFIRMATION, owner, "Request send Successful!" ,"We will get back to you soon");
 	       
-	     
+	            name.setText("");
+		        Reqcombo.getSelectionModel().clearSelection();
+		        F_name.setText("");
+		        Rcombo.getSelectionModel().clearSelection();
+		        F_weight.setText("");
+		        D_date.setValue(null);
+		        
 	       
 		
 
